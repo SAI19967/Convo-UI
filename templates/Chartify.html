@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Navigation.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <script src="https://kit.fontawesome.com/cc00d27b50.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="Globel.css">
+  <link rel="stylesheet" href="/audioMotionAnalyzer.cs">
+  <link rel="stylesheet" href="Charrify.css">
+  <title>Document</title>
+</head>
+<style>
+  #cameraCard {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: none;
+  }
+
+  #cameraFeed {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #imageContainer img {
+    width: 100%;
+  }
+
+  #cameraCard button {
+    background-color: white;
+  }
+
+  .cancel {
+    color: blue;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .cancel:hover {
+    opacity: .8;
+  }
+
+  .capturePicture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: red;
+  }
+
+  .startVideo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: red;
+  }
+
+  .bg-red {
+    background-color: red;
+  }
+
+  /* styling for Voice Recording */
+  .voiceRecordCard {
+    width: 400px;
+    padding: 10px;
+    height: 200px;
+  }
+
+  .startRecording:hover {
+    box-shadow: 0 0 0 3px #2275d780
+  }
+
+  .stopRecording:hover {
+    box-shadow: 0 0 0 3px #2275d780
+  }
+
+  #recordingProgress {
+    display: none;
+    margin-bottom: 10px;
+  }
+
+  #voiceOkayButton,
+  #voiceCrossButton {
+    display: none;
+  }
+
+  .oneDriveCard {
+    width: 400px;
+    height: 300px;
+  }
+
+  .custom-title-oneDrive {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+
+  }
+
+  .scrollable-div {
+    width: 300px;
+    height: 150px;
+    background-color: #f0f0f0;
+    overflow: auto;
+  }
+
+  /* Customize scrollbar width */
+  .scrollable-div::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Customize scrollbar track */
+  .scrollable-div::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+
+  /* Customize scrollbar thumb (the draggable part) */
+  .scrollable-div::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+</style>
+
+<body>
+  <div id="body-pd" style=" display: flex; padding-right: 0 !important;">
+
+    <header class="header" id="header">
+      <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+      <div class="text-white">
+        <h5 class="text-white ">Chartify</h5>
+      </div>
+      <div class="">
+        <button class="btn btn-primary sm-d-none ms-2 border-radius-20" type="submit">Upgrade to premium</button>
+        <a href=""
+          class="btn ms-2 d-inline-flex align-items-center justify-content-center  btn-primary bg-light-gray rounded-circle border-0 cursor-pointer shadow-none"
+          style="width: 40px; height: 40px;"><i class="fa-solid fa-earth-americas"></i></a>
+        <a href="Login.html"
+          class="btn ms-2 d-inline-flex align-items-center justify-content-center  btn-primary bg-light-gray rounded-circle border-0 cursor-pointer shadow-none"
+          style="width: 40px; height: 40px;"><i class="fa-regular fa-user"></i></a>
+      </div>
+
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav " style=" overflow: auto">
+        <div> <a href="#" class="nav_logo"> <img src="Assets/Ellipse 1 (1).svg" alt="" width="30px"><span
+              class="nav_logo-name">Convo</span> </a>
+          <div class="nav_list">
+            <div class="pt-2 mb-2 me-2">
+              <a href="Navigation.html" class="nav_link "> <span class="w-h-apply"> <img
+                    src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683017095092x397918438717302000%2Fspeech-bubble.png?w=16&h=16&auto=compress&dpr=1.25&fit=max"
+                    alt="" width="15px"> </span> <span class="nav_name">Invo</span>
+              </a>
+              <a href="Click IT.html" class="nav_link "> <span class="w-h-apply"> <img
+                    src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683018883242x449387226787350460%2Fclipboard-sketch.png?w=16&h=16&auto=compress&dpr=1.25&fit=max"
+                    alt="" width="15px"> </span> <span class="nav_name">Click It</span> </a>
+            </div>
+            <a href="AskMe.html" class="nav_link"> <span class="w-h-apply"> <img
+                  src="Assets/Ellipse 1 (1).svg"
+                  alt="" width="15px"> </span> <span class="nav_name"> Answer Me</span> </a>
+            <a href="Chartify.html" class="nav_link active"> <span class="w-h-apply"> <svg viewBox="0 -18 50 50"
+                  style="width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle"
+                    style="font-size: 50px; fill: currentcolor;"></text></svg> </span> <span
+                class="nav_name">Chartify</span> </a>
+            <a href="Alret.html" class="nav_link"> <span class="w-h-apply"> <svg viewBox="0 -18 50 50"
+                  style="width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle"
+                    style="font-size: 50px; fill: currentcolor;"></text></svg></span><span class="nav_name">Show a list
+                of Alerts</span> </a>
+            <a href="Query.html" class="nav_link"> <span class="w-h-apply"><img
+                  src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683019017911x435685886050843000%2Fdocuments-symbol.png?w=16&h=16&auto=compress&dpr=1.25&fit=max"
+                  alt="" width="15px"></span> <span class="nav_name">Query History</span> </a>
+            <hr style="background-color: #ccc;">
+
+            <a href="Premium.html" class="nav_link"> <span class="w-h-apply"><img
+                  src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683017095092x397918438717302000%2Fspeech-bubble.png?w=16&h=16&auto=compress&dpr=1.25&fit=max"
+                  alt="" width="15px"></span> <span class="nav_name">Convo Premium</span> </a>
+            <hr style="background-color: #ccc;">
+
+            <div class="pt-2 mb-2 me-2">
+              <a href="#" class="nav_link"><span><i class="fa-solid fa-wrench " style="font-size: 25px;"></i></span>
+                <span class="nav_name">Settings</span> </a>
+              <a href="Billing.html" class="nav_link"> <span class="w-h-apply"><svg viewBox="0 -18 50 50"
+                    style="  width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle"
+                      style="font-size: 50px; fill: currentcolor;"></text></svg></span> <span class="nav_name">Usage &
+                  Billing</span> </a>
+            </div>
+            <hr style="background-color: #ccc;">
+            <div class="pt-2 mb-2 me-2">
+              <a href="Help.html" class="nav_link"> <span class="w-h-apply"><i class="fa-sharp fa-solid fa-face-smile"
+                    style=" font-size: 18px; color: #4f4f4f;"></i></span> <span class="nav_name">Help Center</span> </a>
+              <a href="#" class="nav_link"> <span> <i class="fa-regular fa-envelope" style="font-size: 25px;"></i>
+                </span> <span class="nav_name">Contact Us</span> </a>
+              <a href="Invite.html" class="nav_link"> <span> <i class="fa-solid fa-hand" style="font-size: 25px;"></i>
+                </span> <span class="nav_name">Invite Others</span> </a>
+            </div>
+          </div>
+        </div>
+        <!-- <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a> -->
+      </nav>
+    </div>
+  </div>
+  <div>
+    <div class="ps-86 me-4" id="remove">
+      
+      <div class="row  sm-ps-2 sm-ps-460-0" id="card">
+        <div class="col-md-12  col-sm-12 col-lg-6 p-0 m-0 " >
+          <div id="dropdownId" style="visibility: visible;">
+      <p class="text-white " style="position: relative; top: 10px; ">Create Chart For</p>
+          <div class="input-group me-2 mb-2 removeWithClick"  style="width: 220px;">
+            <select class="form-select" id="inputGroupSelect01">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+          <div class="card bg-black pb-3 ">
+            <div class="text-white pt-2 ps-2 d-flex justify-content-center h-440" style=" width: 100%; ">
+              <div id="pie-chart-card" class="maindiv w-460-100" >
+                <div class="frontcard">
+
+
+                </div>
+                <div class="backcard">
+                  <div class="w-460-100" style=" flex-direction: column; align-items: center; justify-content: center;" >
+
+                    <div>
+                      <canvas  id="pie-chart" class="w-460-100" ></canvas>
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="form-floating w-100 mb-4 me-2" id="textAreaId"  style="display: block;">
+              <textarea class="form-control bg-black focus-border-middle-green text-white box-shadow-none border-middle-green h-100 " placeholder="Editable Textbox here" id="floatingTextarea"></textarea>
+            </div>
+
+            </div>
+            <div class=" w-100 ps-3 pe-3 justify-content-between  sm-460-flex-column h-460-120" id="pynonefooter" style="  display: none; ">
+              <div class="col-7">
+
+              <div class="d-flex sm-460-justify-content-between pt-2 w-460-100 " >
+                <div class="col-4 w-460-120px w-460-120px">
+               <a href=""  >   <img src="Assets/like 2.png" alt="" width="30px"></a>
+                <a href="" >  <img src="Assets/like 1.png" alt="" width="30px"> </a>
+                </div>
+                <div class="col-3 w-460-40 w-460-40">
+              <a href="#">    <img src="Assets/email 1 (1).png" alt="" width="30px"> </a>
+                </div>
+                <div class="col-3 d-flex  w-460-40 w-460-40">
+                 <a href=""> <img src="Assets/copy 1.png" alt="" width="30px"></a>
+                </div>
+                   <div class="col-2 w-460-50 d-flex justify-content-end w-460-40">
+                 <a href=""> <img src="Assets/download.png" alt="" width="30px"></a>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-5 "  >
+                <button class="btn btn-primary m-auto d-block pos460-absolute-bottom-10" style="position: absolute; right: 13px; "  onclick="flipCard('pie-chart-card','dropdownId','pyblockfooter','flipButtonId','textAreaId','pynonefooter','','','','',)"  > Back to   Chartify</button>
+              </div>
+            </div>
+
+            <div class=" ps-3 pe-3  justify-content-between" id="pyblockfooter" style=" display: flex;" >
+              <div> <a href="#"> <img src="Assets/Vector3.svg" alt="foo" width="25px"> </a></div>
+           
+              <div>
+                <button class="btn btn-primary me-3"  onclick="flipCard('pie-chart-card','dropdownId','pyblockfooter','flipButtonId','textAreaId','pynonefooter','','','','',)" id="btn-flip-piechart"   >  Chartify</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-lg-6 m-0 sm-p-0 md-p-0">
+      <p class="text-white " style="position: relative;  right: 10px; opacity: 0; cursor: default; ">Create Chart For</p>
+          <div class="input-group mb-2 " id="bar-dropdown" style="width: 220px; visibility: visible;">
+            <select class="form-select" id="inputGroupSelect01">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="card bg-black-dark pb-3   ">
+            <div class="text-white pt-2 ps-2 d-flex justify-content-center sm-460-500 h-440 "style=" width: 100%;  ">
+              <div id="bar-chart-card"  class="maindiv pe-2 w-600 w-sm-100 me-460-2 ps-10px" >
+                <div class="frontcard">
+            
+            
+                </div>
+                <div class="backcard">
+                  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            
+                    <div>
+                      <canvas id="bar-chart" ></canvas>
+                    </div>
+            
+                  </div>
+            
+            
+                </div>
+              </div>
+              <div class="form-floating w-100 mb-4 me-2 " id="bar-textareaId" style="display: block;">
+                <textarea class="form-control bg-black h-100 text-white border-middle-green focus-border-middle-green box-shadow-none " placeholder="Editable Textbox here" id="floatingTextarea"></textarea>
+              </div>
+              
+            </div>
+            <div class=" w-100 ps-3 pe-3 justify-content-between sm-460-flex-column h-460-120 "  id="barnonefooter" style="  display: none; ">
+              <div class="col-7">
+              <div class="d-flex pt-2" >
+                <div class="col-4 w-460-120px">
+               <a href="" >   <img src="Assets/like 2.png" alt="" width="30px"></a>
+                <a href="">  <img src="Assets/like 1.png" alt="" width="30px"> </a>
+                </div>
+                <div class="col-3 w-460-40">
+              <a href="#">    <img src="Assets/email 1 (1).png" alt="" width="30px"> </a>
+                </div>
+                <div class="col-3 d-flex  w-460-40">
+                 <a href=""> <img src="Assets/copy 1.png" alt="" width="30px"></a>
+                </div>
+                   <div class="col-2 d-flex justify-content-end w-460-40">
+                 <a href=""> <img src="Assets/download.png" alt="" width="30px"></a>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-5 "  >
+                <button onclick="flipCard('bar-chart-card','', '' , '', '','' ,'bar-textareaId','bar-dropdown','barnonefooter','barblockfooter')"  style="position: absolute; right: 13px; " class="btn btn-primary me-3 pos460-absolute-bottom-10" >Back to Chartify</button>
+              </div>
+            </div>
+            <div class="justify-content-between ps-3 pe-3 " id="barblockfooter" style="display: flex; padding-bottom: 1.9px; ">
+              <div> <a href="#"> <img src="Assets/Vector3.svg" alt="foo" width="25px"> </a></div>
+              <div>
+                <button onclick="flipCard('bar-chart-card','', '' , '', '','' ,'bar-textareaId','bar-dropdown','barnonefooter','barblockfooter')" class="btn btn-primary me-3" >Chartify</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div> 
+      <br>
+       
+    </div>
+  </div>
+  <br> <br>
+  <div class=" dark-bg-color pt-4 pb-4  text-justify  ps-80 pb-3 ps-m-0 pe-2" id="anopadding" >
+    <p  class="fs-5 text-center pt-2 text-green" >Convo's artificial intelligence technology can improve <br>
+        your data processing capabilities
+        </p> <br>
+        <p class="text-white  sm-pe-2">The invoices/databases you use are important and our conversational analytics has been developed to make
+            sure you adopt the proper ones. There are two free versions and five Premium versions offered by Convo so you  can rework any text in varied forms. Our service will be able to refine your language skills and guarantee that you use the correct words, tones, and structure for the correct circumstances. Just add the material to the input window and  our AI will help you to create the best result.
+           </p>
+  </div>
+  <div class="dark-bg-color pt-4 sm-ps-0 ps-80 pb-4 sm-460-p-0 " style="border-top: solid #333333 3px; border-bottom: solid #333333 3px;" id="addpadding" >
+    <div class="pe-3">
+
+    <p class="fs-5  text-center text-green " >What are the advantages of using Congo's Paraphrasing Tool?</p>
+    <p class="text-center text-white">This Paraphraser possesses exceptional qualities.</p>
+    <div class="row  align-items-center ">
+        <div class=" col-lg-6 col-md-12 col-sm-12 d-sm-flex sm-align-items-center sm-justify-content-center">
+            <img src="Assets/content.png" alt=""  class="w-450 w-sm-100">
+        </div>
+        <div class=" col-lg-6 col-md-12 col-sm-12  ">
+            <p class="text-white ">CUSTOMIZATION <br>
+                Consider the amount of lexical alteration desired.
+                Utilize the Synonym Variable to modify more (or less) of your writing. Sliding the variable to the left will grant you a more exact rewrite with fewer modifications; shifting it to the right will mean you’ll achieve a more imaginative output with more alterations.</p>
+        </div>
+    </div>
+  </div>
+
+  </div>
+  
+  <div class="dark-bg-color sm-ps-0 pt-4 pb-4  ps-80 pe-3 pt-2" id="paddingadd">
+    <p class="text-green text-center fs-5" > What are the advantages of using Congo's Paraphrasing Tool?</p>
+    <p class="text-white text-center">This Paraphraser possesses exceptional qualities.</p>
+    <div class="row  ">
+        <div class=" col-lg-6 col-md-12 col-sm-12 ">
+            <p class="text-white">CUSTOMIZATION <br>
+                Consider the amount of lexical alteration desired.
+                Utilize the Synonym Variable to modify more (or less) of your 
+                writing. Sliding the variable to the left will grant you a more exact
+                 rewrite with fewer modifications; shifting it to the right will mean
+                 you’ll achieve a more imaginative output with more alterations.
+                </p>
+        </div>
+        <div class=" col-lg-6 col-md-12 col-sm-12 ps-sm-1 d-sm-flex sm-align-items-center sm-justify-content-center">
+            <img src="Assets/content.png" alt=""  class="w-450">
+        </div>
+    </div>
+  </div>
+</div>      
+<div class="footer  pt-3 pb-3 ps-2 pe-2 " >
+    <div  class="ps-50 " id="footerpadding"  > 
+    <div class="row " >
+        <div class="col-sm-3 col-md-2 col-lg-2 ">
+            <h6>Products</h6>
+            <span class="fs-14 pb-2 d-inline-block">Marketing</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Sales Solution</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Business</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Data</span> <br>
+        </div>
+      
+        <div class="col-sm-3 col-md-2 col-lg-2">
+            <h6>Support</h6>
+            <span class="fs-14 pb-2 d-inline-block">Documentation</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Help Center</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Business</span> <br>
+        </div>
+        <div class="col-sm-3 col-md-2 col-lg-2">
+            <h6>Company</h6>
+            <span class="fs-14 pb-2 d-inline-block">About</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Team</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Careers</span> <br>
+            <span class="fs-14 pb-2 d-inline-block">News</span> <br>
+        </div>
+        <div class="col-sm-3 col-md-2 col-lg-2">
+            <h6>Legal</h6>
+            <span class="fs-14 pb-2 d-inline-block" >Privacy Policy
+            </span> <br>
+            <span class="fs-14 pb-2 d-inline-block">Terms</span> <br>
+            
+        </div>
+        <div class="col-sm-12 col-md-2 col-lg-2 ">
+            <div class="logo ">
+                <img src="Assets/Ellipse 1 (1).svg" alt="" width="120px">
+                <br>
+               <p class="fs-13 mt-2"> Rapid and maintainable <br> product development</p>
+            </div>
+        </div>
+    </div> <br>
+    <div class="d-flex pe-4 justify-content-center align-items-center" >
+        <span class="d-inline-block me-5 sm-d-none " style="width: 220px; height: 2px; background-color: #FFF;" >
+        </span>
+        <div  class="fs-14 sm-d-none"> © 2023 Argoteks Incorporated. All rights reserved.</div>
+           
+            <a href="#">  <i class="fa-brands bg-middle-green fa-facebook-f ps-3" style="font-size: 18px;"></i></a>
+            <a href="#">     <i class="fa-brands bg-middle-green fa-youtube ps-3" style="font-size: 18px;"></i></a>
+         <a href="#">   <i class="fa-brands bg-middle-green fa-instagram ps-3" style="font-size: 18px;"></i></a>
+            <a href="#"> <i class="fa-brands bg-middle-green fa-linkedin-in ps-3" style="font-size: 18px;"></i></a>
+            <span class="d-inline-block ms-5 sm-d-none" style="width: 220px; height: 2px; background-color: #FFF;" >
+            </span>
+        </div>
+    </div>
+</div>
+  <style>
+    td,
+    th {
+      color: white !important;
+    }
+    .page-link{
+      background-color: black !important;
+      color: white !important;
+    }
+  </style>
+  <script src="navigation.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="chartjs-plugin-datalabels.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+      const showNavbar = (toggleId, navId, bodyId, headerId) => {
+        const toggle = document.getElementById(toggleId),
+          nav = document.getElementById(navId),
+          bodypd = document.getElementById(bodyId),
+          headerpd = document.getElementById(headerId)
+
+        // Validate that all variables exist
+        if (toggle && nav && bodypd && headerpd) {
+          toggle.addEventListener('click', () => {
+            removeClass();
+            // show navbar
+            nav.classList.toggle('show2')
+            // change icon
+            toggle.classList.toggle('bx-x')
+            // add padding to body
+            bodypd.classList.toggle('body-pd')
+            // add padding to header
+            headerpd.classList.toggle('body-pd')
+          })
+        }
+      }
+
+      showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+      /*===== LINK ACTIVE =====*/
+      const linkColor = document.querySelectorAll('.nav_link')
+
+      function colorLink() {
+        if (linkColor) {
+          linkColor.forEach(l => l.classList.remove('active'))
+          this.classList.add('active')
+        }
+      }
+      linkColor.forEach(l => l.addEventListener('click', colorLink))
+    });
+    function removeClass() {
+
+      var divElement = document.getElementById("remove");
+      divElement.classList.toggle('ps-270');
+      var addpadding = document.getElementById('addpadding');
+      addpadding.classList.toggle('ps-269')
+      var anopadding = document.getElementById('anopadding');
+      anopadding.classList.toggle('ps-269');
+      var paddingadd = document.getElementById('paddingadd');
+      paddingadd.classList.toggle('ps-269');
+      var footerpadding = document.getElementById('footerpadding');
+      footerpadding.classList.toggle('ps-269')
+    }
+  
+
+   
+    Chart.register(ChartDataLabels);
+
+    setFront("pie-chart-card");
+    setFront("bar-chart-card");
+
+
+    function setFront(id) {
+      const element = document.getElementById(id);
+
+      if (!element) {
+        console.error(`Element with ID '${id}' not found.`);
+        return;
+      }
+      element.dataset.isFront = "true";
+    }
+
+    function flipCard(elementId,dropdownId,blockId,flipButtonId,textAreaId,pynonefooter,bartextareaId,bardropdown,barnonefooter,barblockfooter) {
+      const element = document.getElementById(elementId);
+
+      if (!element) {
+        console.error(`Element with ID '${elementId}' not found.`);
+        return;
+      }
+
+      if (element.dataset.isFront === "true") {
+        element.style.transform = 'rotateY(180deg)';
+        element.dataset.isFront = "false";
+      } else {
+        element.style.transform = 'rotateY(0deg)';
+        element.dataset.isFront = "true";
+      }
+      
+      var dropdownElement = document.getElementById(dropdownId);
+    if (dropdownElement) {
+        if (dropdownElement.style.visibility === 'hidden') {
+            dropdownElement.style.visibility = 'visible';
+        } else {
+            dropdownElement.style.visibility = 'hidden';
+        }
+    }
+   
+    var noneElement = document.getElementById(flipButtonId);
+    if (noneElement) {
+
+        if (noneElement.style.display === 'block') {
+            noneElement.style.display = 'none';
+        } else {
+            noneElement.style.display = 'block';
+        }
+    }
+   
+var textarea = document.getElementById(textAreaId);
+if (textarea) 
+{
+    if (textarea.style.display === 'none')
+     {
+      textarea.style.display = 'block';
+    }
+
+     else
+      {
+      textarea.style.display = 'none';
+    }
+}
+var firstnone = document.getElementById(pynonefooter)
+if(firstnone){
+  if(firstnone.style.display === 'none'){
+    firstnone.style.display = 'flex';
+  }
+  else{
+    firstnone.style.display = 'none';
+  }
+ }
+ var firstblock = document.getElementById(blockId);
+ if(firstblock){
+   if(firstblock.style.display === 'flex'){
+     firstblock.style.display = 'none'
+   }else{
+     firstblock.style.display = 'flex'
+   }
+ }
+
+ var bartextareaId = document.getElementById(bartextareaId)
+ if(bartextareaId){
+  if(bartextareaId.style.display === 'none'){
+    bartextareaId.style.display = 'block'
+  }
+  else{
+    bartextareaId.style.display = 'none'
+  }
+ }
+
+ var bardropdown = document.getElementById(bardropdown)
+ if(bardropdown){
+  if(bardropdown.style.visibility === 'visible'){
+    bardropdown.style.visibility = 'hidden';
+
+  }
+  else{
+    bardropdown.style.visibility = 'visible';
+
+  }
+ }
+ var barnonefooter = document.getElementById(barnonefooter)
+ if(barnonefooter){
+  if(barnonefooter.style.display === 'none'){
+    barnonefooter.style.display = 'flex';
+  }
+  else{
+    barnonefooter.style.display = 'none';
+
+  }
+ }
+var barblockfooter = document.getElementById(barblockfooter)
+if(barblockfooter){
+  if(barblockfooter.style.display === 'flex'){
+    barblockfooter.style.display = 'none';
+  }
+  else{
+    barblockfooter.style.display = 'flex';
+
+  }
+}
+}
+
+
+
+
+    const pieChart = document.getElementById('pie-chart');
+
+    new Chart(pieChart, {
+      type: 'pie',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 33, 35, 32, 33],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: "#dee2e6"
+            }
+          },
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map(data => {
+                sum += data;
+              });
+              let percentage = ((value * 100 / sum).toFixed(2) + "%");
+              return percentage;
+            },
+            color: '#fff',
+          }
+        }
+      }
+    });
+
+
+
+
+    const barChart = document.getElementById('bar-chart');
+
+    new Chart(barChart, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
+        },
+        {
+          label: 'Total of Votes',
+          data: [12, -19, 3, 5, 2, 3],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

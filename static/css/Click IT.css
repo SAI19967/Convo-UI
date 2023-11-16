@@ -1,0 +1,52 @@
+.ps-90{
+    padding-left: 90px;
+    transition: .5s !important;
+}
+.ps-150{
+    padding-left: 220px;
+    transition: .5s;
+}
+
+.ps-105{
+    padding-left: 100px  ;
+    transition: all .5s !important;
+
+}
+.ps-101{
+    padding-left: 230px !important;
+    transition: .5s !important;
+}
+.ps-250{
+    padding-left: 250px;
+    transition: all .5s !important;
+}
+
+@media screen and (max-width: 768px){
+    .ps-90{
+        padding-left: 20px;
+    }
+    .ps-150{
+        padding-left: 70px !important;
+    }
+    .ps-250{
+        padding-left: 90px;
+    }
+    body{
+        padding-right: 0 !important;
+    }
+    .sm-m-0{
+        margin: 0 !important;
+    }
+    .ps-101{
+        padding-left: 90px !important;
+    }
+    .sm-ps-2{
+        padding-left: 3rem;
+    }
+    .sm-ps-3{
+        padding-left: 4rem;
+    }
+.ps-105{
+    padding-left:20px ;
+}
+}

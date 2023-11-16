@@ -1,0 +1,10 @@
+@media screen and (max-width: 768px){
+    .sm-pl-30{
+        padding-left: 30px;
+    }
+   .pl-30{
+    padding-left: 25px;
+    transition: all .5s;
+   }
+
+}

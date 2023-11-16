@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Navigation.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <script src="https://kit.fontawesome.com/cc00d27b50.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Globel.css">
+    <link rel="stylesheet" href="/audioMotionAnalyzer.cs">
+    <title>Document</title>
+</head>
+<style>
+        #cameraCard {
+         
+         border-radius: 5px;
+         padding: 10px;
+         box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+         max-width: 600px;
+         margin: 0 auto;
+         text-align: center;
+         display: none;
+     }
+     .bg-red{
+         background-color: red;
+     }
+     #cameraFeed {
+         display: none;
+         width: 100%;
+         max-width: 100%;
+     }
+     #imageContainer img{
+         width: 100%;
+     }
+   
+     .cancel{ 
+         color: blue;
+         cursor: pointer;
+         font-size: 12px;
+     }
+     .cancel:hover{
+         opacity: .8;
+     }
+     .capturePicture{
+         width: 50px;
+         height: 50px;
+         border-radius: 50%;
+     }
+     .startVideo{
+         width: 50px;
+         height: 50px;
+         border-radius: 50%;
+         color: white !important;
+     }
+   
+
+     /* styling for Voice Recording */
+     .voiceRecordCard{
+         width: 400px;
+         padding: 10px;
+         height: 200px;
+     }
+     .startRecording:hover{
+         box-shadow :0 0 0 3px #2275d780
+
+     }
+     .stopRecording:hover{
+         box-shadow :0 0 0 3px #2275d780
+     }
+     #recordingProgress {
+         display: none;
+         margin-bottom: 10px;
+     }
+    
+     #voiceOkayButton, #voiceCrossButton {
+         display: none;
+     }
+     .oneDriveCard{
+         width: 400px;
+         height: 300px;
+     }
+     .custom-title-oneDrive{
+         text-align: center;
+         font-size: 12px;
+        font-weight: 500;
+
+     }
+     .scrollable-div {
+   width: 300px;
+   height: 150px;
+   background-color: #f0f0f0;
+   overflow: auto;
+ }
+
+ /* Customize scrollbar width */
+ .scrollable-div::-webkit-scrollbar {
+   width: 8px;
+ }
+
+ /* Customize scrollbar track */
+ .scrollable-div::-webkit-scrollbar-track {
+   background: #f0f0f0;
+ }
+
+ /* Customize scrollbar thumb (the draggable part) */
+ .scrollable-div::-webkit-scrollbar-thumb {
+   background: #888;
+   border-radius: 4px;
+ }
+</style>
+  <body >
+    <div id="body-pd" style=" display: flex; padding-right: 0 !important;">
+        
+    <header class="header" id="header">
+        <div class="header_toggle" > <i class='bx bx-menu' id="header-toggle" ></i> </div>
+        <div class="text-white"> <h5 class="text-white" >Answer Me</h5> </div>
+        <div> 
+            <button class="btn btn-primary sm-d-none ms-2 border-radius-20" type="submit">Upgrade to premium</button>
+            <a href="" class="btn ms-2 d-inline-flex align-items-center justify-content-center  btn-primary bg-light-gray rounded-circle border-0 cursor-pointer shadow-none" style="width: 40px; height: 40px;"><i class="fa-solid fa-earth-americas"></i></a>
+            <a href="Login.html" class="btn ms-2 d-inline-flex align-items-center justify-content-center  btn-primary bg-light-gray rounded-circle border-0 cursor-pointer shadow-none" style="width: 40px; height: 40px;"><i class="fa-regular fa-user"></i></a>
+        </div>
+
+    </header>
+    
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav " style=" overflow: auto" >
+            <div> <a href="#" class="nav_logo">     <img src="Assets/Ellipse 1 (1).svg" alt="" width="30px"><span class="nav_logo-name">Convo</span> </a>
+                <div class="nav_list">
+                    <div class="pt-2 mb-2 me-2" >
+                     <a href="Navigation.html" class="nav_link "> <span class="w-h-apply"> <img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683017095092x397918438717302000%2Fspeech-bubble.png?w=16&h=16&auto=compress&dpr=1.25&fit=max" alt="" width="15px" > </span> <span class="nav_name">Invo</span> 
+                    </a> 
+                     <a href="Click IT.html" class="nav_link "> <span class="w-h-apply"> <img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683018883242x449387226787350460%2Fclipboard-sketch.png?w=16&h=16&auto=compress&dpr=1.25&fit=max" alt="" width="15px"> </span> <span class="nav_name">Click It</span> </a>
+                    </div>
+                      <a href="AskMe.html" class="nav_link active"> <span class="w-h-apply"> <img src="Assets/Ellipse 1 (1).svg" alt="" width="15px"> </span> <span class="nav_name"> Answer Me</span> </a> 
+                      <a href="Chartify.html" class="nav_link"> <span class="w-h-apply"> <svg viewBox="0 -18 50 50" style="width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle" style="font-size: 50px; fill: currentcolor;"></text></svg> </span> <span class="nav_name">Chartify</span> </a>
+                       <a href="Alret.html" class="nav_link"> <span class="w-h-apply"> <svg viewBox="0 -18 50 50" style="width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle" style="font-size: 50px; fill: currentcolor;"></text></svg></span><span class="nav_name">Show a list of Alerts</span> </a>
+                        <a href="Query.html" class="nav_link"> <span class="w-h-apply"><img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683019017911x435685886050843000%2Fdocuments-symbol.png?w=16&h=16&auto=compress&dpr=1.25&fit=max" alt="" width="15px"></span> <span class="nav_name">Query History</span> </a> 
+                    <hr style="background-color: #ccc;">
+
+                       <a href="Premium.html" class="nav_link"> <span class="w-h-apply"><img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Ffda24d60c31d25c80a139fd92b04ba4b.cdn.bubble.io%2Ff1683017095092x397918438717302000%2Fspeech-bubble.png?w=16&h=16&auto=compress&dpr=1.25&fit=max" alt="" width="15px"></span>  <span class="nav_name">Convo Premium</span> </a> 
+                    <hr style="background-color: #ccc;">
+
+                       <div class="pt-2 mb-2 me-2" >
+                       <a href="#" class="nav_link"><span ><i class="fa-solid fa-wrench " style="font-size: 25px;"></i></span> <span class="nav_name">Settings</span> </a>
+                       <a href="Billing.html" class="nav_link"> <span class="w-h-apply"><svg viewBox="0 -18 50 50" style="  width: 15px; height: 100%;"><text class="fa" x="50%" y="50%" text-anchor="middle" style="font-size: 50px; fill: currentcolor;"></text></svg></span> <span class="nav_name">Usage & Billing</span> </a>
+                    </div>
+                    <hr style="background-color: #ccc;">
+                    <div class="pt-2 mb-2 me-2" >
+                        <a href="Help.html"  class="nav_link"> <span class="w-h-apply"><i class="fa-sharp fa-solid fa-face-smile" style=" font-size: 18px; color: #4f4f4f;"></i></span> <span class="nav_name">Help Center</span> </a>
+                       <a href="#" class="nav_link">  <span >  <i class="fa-regular fa-envelope" style="font-size: 25px;"></i> </span> <span class="nav_name">Contact Us</span> </a> 
+                       <a href="Invite.html" class="nav_link"> <span >  <i class="fa-solid fa-hand"       style="font-size: 25px;" ></i>       </span> <span class="nav_name">Invite Others</span> </a> 
+                       </div>
+                      </div>
+            </div> 
+            <!-- <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a> -->
+        </nav>
+    </div>
+</div>
+
+    <!--Container Main start-->
+    <div>
+        <div  class="ps-73 me-4" id="remove">
+            <div class="d-flex justify-content-between align-items-center  " > 
+                <div class="d-flex justify-content-center align-items-center pb-2 sm-ps-2" style="position: relative; right: 8px;" >
+                        <div>
+                            <p class="fs-13 text-white mt-3 me-2">Answer me in</p>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1" style="width: 60px;">
+            
+                        </div>
+                        <div><p class="fs-13 text-white mt-3 ms-2">Words</p></div>
+                    </div>
+               <div>
+                <div class="input-group  mb-2 w-240" >
+                    <select class="form-select" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+               </div>
+                </div>   
+                <div class="row sm-ps-2 h-md-100" id="card" style="height: 100%;">
+                  <div class="col-md-12  col-sm-12 col-lg-6 p-0 m-0 " >
+                      <div class=" card bg-black-dark pb-3  h-100"  >
+                          <div class="d-flex pt-2 mb-2 flex-column align-items-center position-relative pb-2" style="  border: solid green 4px; border-radius: 5px;">
+                              <div class="d-flex">
+                             <label for="" class="text-white" style="white-space: nowrap;"> drop files </label>
+                              <label for="file" style="white-space: nowrap; color: #6cb3ed;" class="  fw-bold cursor-pointer hover-text-decuration-underline text-center ms-1 pe-1" style="border-radius: 4px; color: #6cb3ed; ">
+                                  Browse file
+                                </label>
+            
+                                <input type="file" id="file" class="hidden-file-input " >
+                            <label for="" class="text-white">    or import from</label>
+            
+                          </div>
+            
+                                <div class="mt-3" style="display: flex; justify-content: center;  flex-wrap: wrap;" >
+                                <div class="d-flex me-4 flex-column align-items-center justify-content-center" >
+                                  <button onclick="openWindow('DropboxCard')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                      <img src="Assets/Vector1.svg" alt="foo">
+                                  <p class="text-white">Dropbox</p>
+                                  </button>
+                                  
+                                </div>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                  <div class="custom-title-oneDrived mt-2 " > <h6 class="text-white fw-bold "> Import from Dropbox </h6></div>
+                                        <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                                      </div>
+                                      <div class="modal-body">
+                                         <div id="DropboxCard" class="card  " style=" border: 0; color: white; display: none;">
+                                  
+                                   <div class="d-flex justify-content-center align-items-center mb-2" >
+                                      <div>
+                                          <svg aria-hidden="true" focusable="false" width="45" height="45" viewBox="0 0 32 32"><g fill="none" fillRule="evenodd"><rect class="uppy-ProviderIconBg" fill="#0D2481" width="32" height="32" rx="16"></rect><path d="M11 8l5 3.185-5 3.186-5-3.186L11 8zm10 0l5 3.185-5 3.186-5-3.186L21 8zM6 17.556l5-3.185 5 3.185-5 3.186-5-3.186zm15-3.185l5 3.185-5 3.186-5-3.186 5-3.185zm-10 7.432l5-3.185 5 3.185-5 3.186-5-3.186z" fill="#FFF" fillRule="nonzero"></path></g></svg>    
+                                      </div>
+                                   </div>
+                                    <p class=" text-center mb-2">Please Authenticate with Dropbox to select files</p>
+                                    <div class="d-flex justify-content-center">
+                                      <a href="#" class="btn btn-primary m-2">Coneect to Dropbox</a>
+                                    </div>
+                                </div>
+                                      </div>
+                                     
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="d-flex me-4 flex-column align-items-center justify-content-center">
+                                  <button onclick="openWindow('DriveCard')" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                  <img src="Assets/Vector.svg" alt="foo">
+                                  <p class="text-white">Drive</p>
+                              </button>
+                                </div>
+                                  <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                  <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                  <div class="custom-title-oneDrive mt-2" ><h6 class="text-white fw-bold">Import from Drive</h6></div>
+            
+                                      <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                                    </div>
+                                    <div class="modal-body">
+                                     <div id="DriveCard" class="card border-0 " style=" color: white; display: none;">
+                                   
+            
+                                
+                                  
+                                   <div class="d-flex justify-content-center align-items-center mb-2" >
+                                      <div>
+                                          <img src="Assets/Vector.svg" alt="foo" width="50px">
+                                      </div>
+                                   </div>
+                                    <p class=" text-center mb-2">Please Authenticate with Drive to select files</p>
+                                    <div class="d-flex justify-content-center">
+                                      <a href="#" class="btn btn-primary mb-4">Coneect to Drive</a>
+                                    </div>
+                                 
+                                </div> 
+                                                </div>
+                                              
+                                              </div>
+                                            </div>
+                                  </div>
+            
+                                <div class="d-flex me-4  flex-column align-items-center justify-content-center">
+                                  <button onclick="openWindow('oneDriveCard')" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                      <img src="Assets/Vector2.svg" alt="foo">
+                                      <p class="text-white">One Drive</p></button>
+                                    <div class="modal fade" id="staticBackdrop2" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                      <div class="custom-title-oneDrive mt-2 " ><h6 class="fw-bold text-white">Import from OneDrive</h6></div>
+                                              
+                                            <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                                          </div>
+                                          <div class="modal-body">
+                                           <div id="oneDriveCard" class="card border-0" style=" color: white; display: none;">
+                                   
+            
+                                    
+                                      
+                                       <div class="d-flex justify-content-center align-items-center mb-2" >
+                                          <div><svg aria-hidden="true" focusable="false" width="50" height="50" viewBox="0 0 32 32"><g fill="none" fillRule="evenodd"><rect class="uppy-ProviderIconBg" width="32" height="32" rx="16" fill="#0262C0"></rect><g fill="#FFF" fillRule="nonzero"><path d="M24.157 22s1.492-.205 1.79-1.655a2.624 2.624 0 0 0 .03-.878c-.22-1.64-1.988-2.01-1.988-2.01s.307-1.765-1.312-2.69c-1.62-.925-3.1 0-3.1 0S18.711 13 16.366 13c-3.016 0-3.519 3.448-3.519 3.448S10 16.618 10 19.14c0 2.523 2.597 2.86 2.597 2.86h11.56z"></path><path d="M9.421 19.246c0-2.197 1.606-3.159 2.871-3.472.44-1.477 1.654-3.439 4.135-3.439H16.445c1.721 0 2.79.823 3.368 1.476a3.99 3.99 0 0 1 1.147-.171h.01l.03.002C21.017 13.5 20.691 10 16.757 10c-2.69 0-3.639 2.345-3.639 2.345s-1.95-1.482-3.955.567c-1.028 1.052-.79 2.669-.79 2.669S6 15.824 6 18.412C6 20.757 8.452 21 8.452 21h1.372a3.77 3.77 0 0 1-.403-1.754z"></path></g></g></svg></div>
+                                       </div>
+                                        <p class=" text-center mb-2">Plaese Authenticate with OneDrive to select files</p>
+                                        <div class="d-flex justify-content-center">
+                                          <a href="#" class="btn btn-primary m-2">Coneect to oneDrive</a>
+                                        </div>
+                                     
+                                    </div> 
+                                          </div>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex me-4  flex-column align-items-center justify-content-center">
+                                  <button onclick="openWindow('voiceRecordCard')"data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                                      <img src="Assets/Vector3.svg" alt="foo">
+                                      <p class="text-white">Voice</p>
+                                  </button>
+                                    <div class="modal fade" id="staticBackdrop3" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                              <div class="mt-2"><h6 class="fw-bold text-white">Voice Record</h6></div>
+                                            <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closedWindow('voiceRecordCard')"></a>
+                                          </div>
+                                          <div class="modal-body">
+                                          <div id="voiceRecordCard" class="card border-0" style=" color: white; display: none;">
+            
+                                      <div class="w-100 d-flex justify-content-center align-items-center">
+                                          <audio id="recordedAudio" style="display: none;" controls></audio>
+                                      </div>
+                                      <div class=" d-flex justify-content-center align-items-center">
+                                      <progress id="recordingProgress" max="100" value="0" ></progress>
+                                  </div>
+                                      <div class="d-flex justify-content-center align-items-center w-100">
+                                              <button id="startRecording" onclick="startRecording()" >
+                                          <div class="startRecording  d-flex justify-content-center align-items-center bg-red" style="width: 40px; height: 40px; border-radius: 50%;" >
+                                                  <svg aria-hidden="true" focusable="false" class="uppy-c-icon" width="14px" height="20px" viewBox="0 0 14 20"><path d="M7 14c2.21 0 4-1.71 4-3.818V3.818C11 1.71 9.21 0 7 0S3 1.71 3 3.818v6.364C3 12.29 4.79 14 7 14zm6.364-7h-.637a.643.643 0 0 0-.636.65V9.6c0 3.039-2.565 5.477-5.6 5.175-2.645-.264-4.582-2.692-4.582-5.407V7.65c0-.36-.285-.65-.636-.65H.636A.643.643 0 0 0 0 7.65v1.631c0 3.642 2.544 6.888 6.045 7.382v1.387H3.818a.643.643 0 0 0-.636.65v.65c0 .36.285.65.636.65h6.364c.351 0 .636-.29.636-.65v-.65c0-.36-.285-.65-.636-.65H7.955v-1.372C11.363 16.2 14 13.212 14 9.6V7.65c0-.36-.285-.65-.636-.65z" fill="#FFF" fill-rule="nonzero"></path></svg>
+                                              </div>
+                                              </button>
+                                      </div>
+                                      <div class="d-flex justify-content-center align-items-center w-100">
+                                              <button id="stopRecording" style="display: none; "> 
+                                          <div class="stopRecording d-flex justify-content-center align-items-center bg-red" style="width: 40px; height: 40px; border-radius: 50%;">
+            
+                                              <div style="width: 18px; height: 18px; " ></div>
+                                          </div>
+                                          </button>
+                                         
+                                          </div>
+                                          <div class="w-100 d-flex justify-content-center align-items-center " >
+                                              <button id="voiceCrossButton" class="me-3" onclick="handleCrossClick()" >
+                                                  <div class="d-flex justify-content-center align-items-center bg-red " style="width: 45px; height: 45px; border-radius: 50%;" >
+                                                      <svg width="25" height="25" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="uppy-c-icon"><g fill="#FFF" fillRule="evenodd"><path d="M.496 11.367L11.103.76l1.414 1.414L1.911 12.781z"></path><path d="M11.104 12.782L.497 2.175 1.911.76l10.607 10.606z"></path></g></svg>
+                                                  </div>
+                                              </button>
+                                              <button id="voiceOkayButton" onclick="handleOkayClick()" >
+                                                  <div class="d-flex bg-red justify-content-center align-items-center  " style="width: 45px; height: 45px; border-radius: 50%; " >
+                                                      <svg width="25" height="25" viewBox="0 0 12 9" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="uppy-c-icon"><path fill="#fff" fillRule="nonzero" d="M10.66 0L12 1.31 4.136 9 0 4.956l1.34-1.31L4.136 6.38z"></path></svg>
+                                                  </div></button>
+            
+                                          </div>
+            
+                                          <div >
+                                              <input type="file" id="uploadFile" style="display: none;">
+                                              <button class="w-100 btn btn-primary py-2 my-2" id="uploadVoiceRecordingButton" style="display: none;color: white;">Upload</button>
+                                             </div>
+                                    </div> 
+                                          </div>
+                                     
+                                        </div>
+                                      </div>
+                                    </div>
+            
+            
+            
+                               
+                                </div>
+                                <div class="d-flex me-4  flex-column align-items-center justify-content-center">
+                                  <button id="captureEntireScreen" >
+                                      <img src="Assets/Vector (6).svg" alt="foo">
+                                      <p class="text-white">Screen Cast</p>
+                                  </button>
+                                  <!-- data-bs-toggle="modal" data-bs-target="#staticBackdrop3" -->
+                                  <div id="screenshotContainer">
+                                      <img id="screenshotImage" style="display: none;">
+                                  </div>
+                                 <!-- <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                   <div class="modal-dialog">
+                                     <div class="modal-content">
+                                       <div class="modal-header">
+                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                       </div>
+                                       <div class="modal-body">
+                                          
+                                       </div>
+                                     </div>
+                                   </div>
+                                   </div> -->
+                                </div>
+                                <div class="d-flex me-4  flex-column align-items-center justify-content-center">
+                                  <button id="openButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                                      <img src="Assets/Vector (7).svg" alt="foo">
+                                      <p class="text-white">Camera</p>
+                                  </button>
+                            <div class="modal fade" id="staticBackdrop4" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                      <div class="mt-2"> <h6 class="fw-bold text-white ">Camera</h6></div>
+                                    <a type="button" id="closeButton"  class="btn-close cancel" data-bs-dismiss="modal" aria-label="Close"></a>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div id="cameraCard"  style="z-index: 100 ;">
+                                         
+                                          <div id="imageContainer" style="display: none;"></div>
+                                          <video id="cameraFeed" autoplay playsinline controls style="display: none;"></video>
+                                          <div class="d-flex align-items-center justify-content-center w-100 pt-2" >
+                                              <button id="capturePicture"  style="display: none;">
+                                              <div  class="capturePicture bg-red d-flex justify-content-center align-items-center">
+                                                  <svg aria-hidden="true" focusable="false" fill="white" width="25" height="25" viewBox="0 0 66 55"><path d="M57.3 8.433c4.59 0 8.1 3.51 8.1 8.1v29.7c0 4.59-3.51 8.1-8.1 8.1H8.7c-4.59 0-8.1-3.51-8.1-8.1v-29.7c0-4.59 3.51-8.1 8.1-8.1h9.45l4.59-7.02c.54-.54 1.35-1.08 2.16-1.08h16.2c.81 0 1.62.54 2.16 1.08l4.59 7.02h9.45zM33 14.64c-8.62 0-15.393 6.773-15.393 15.393 0 8.62 6.773 15.393 15.393 15.393 8.62 0 15.393-6.773 15.393-15.393 0-8.62-6.773-15.393-15.393-15.393zM33 40c-5.648 0-9.966-4.319-9.966-9.967 0-5.647 4.318-9.966 9.966-9.966s9.966 4.319 9.966 9.966C42.966 35.681 38.648 40 33 40z" fillRule="evenodd"></path></svg>
+              
+                                              </div>
+                                              
+                                              </button>
+                                          <button id="startVideo" style="display: none;">
+                                          <div class=" startVideo bg-red d-flex align-items-center justify-content-center" > 
+                                             <div><i class="fa-solid fa-video fs-5 " style="position: relative;top:3px; "></i></div>
+                                          </div>
+                                          
+                                          </button>
+                                          </div>
+                                         <div class="d-flex justify-content-center align-items-center w-100" >
+                                          <button id="stopVideo" style="display: none;">
+                                              <div class=" bg-red startVideo d-flex align-items-center justify-content-center" > 
+                                                  <div  ><i class="fa-solid fa-pause fs-5"></i></div>
+                                              </div>
+                                         </div>
+                                          </button>
+                                          <div class="d-flex justify-content-center align-items-center w-100">
+                                              
+                                              <button id="okayButton"  style="display: none;">
+                                                  <div class="d-flex bg-red justify-content-center align-items-center  " style="width: 45px; height: 45px; border-radius: 50%;" >
+                                                      <svg width="25" height="25" viewBox="0 0 12 9" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="uppy-c-icon"><path fill="#fff" fillRule="nonzero" d="M10.66 0L12 1.31 4.136 9 0 4.956l1.34-1.31L4.136 6.38z"></path></svg>
+                                                  </div>
+                                              </button>
+                                          <button id="crossButton" style="display: none;">
+                                              <div class="d-flex bg-red justify-content-center align-items-center border-1 border-white" style="width: 45px; height: 45px; border-radius: 50%;" >
+                                                  <svg width="25" height="25" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="uppy-c-icon"><g fill="#FFF" fillRule="evenodd"><path d="M.496 11.367L11.103.76l1.414 1.414L1.911 12.781z"></path><path d="M11.104 12.782L.497 2.175 1.911.76l10.607 10.606z"></path></g></svg></button>
+                                              </div>
+                                              <div >
+                                                  <input type="file" id="uploadFile" style="display: none;">
+                                                  <button class="w-100 py-2 btn btn-primary " id="uploadButton" style="display: none;  color: white;">Upload</button>
+                                                 </div>
+              
+                                          </div>
+                                         
+                                  </div>
+                                 
+                                </div>
+                              </div>
+                            </div>
+                                  </div>
+                                  <div class="d-flex me-4  flex-column align-items-center justify-content-center">
+                                      <button onclick="openWindow('linkCard')" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                                      <img src="Assets/Vector (8).svg" alt="foo">
+                                      <p class="text-white">Link</p>
+                                  </button>
+                                    </div>
+                                    <div class="modal fade" id="staticBackdrop5" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                      <div class="custom-title-oneDrive mt-2" ><h6 class="fw-bold text-white">Import from Link</h6></div>
+                                            <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                                          </div>
+                                          <div class="modal-body">
+                                                <div id="linkCard" class="card border-0 text-white" style=" display: none;">
+                                       <div class="w-100 d-flex justify-content-center ">
+                                          <div class="input-group mx-5 mb-3">
+                                              <input type="text" class="form-control" placeholder="Enter URL to import a file" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                       </div>
+                                       <div class="d-flex justify-content-center">
+                                          <div >
+                                              <a href="#" class="btn btn-primary mb-2">Import</a>
+                                            </div>
+                                       </div>
+                                    </div> 
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                         
+                              <div class="text-white ps-2 pb-3 " > 
+                                  <div class="form-floating">
+                                      <textarea class="form-control text-white pleaceholder-text-white" placeholder="What would you like to understand from these invoices." id="floatingTextarea2" style="height: 150px; background-color: black ; border: none; box-shadow: none; "></textarea>
+                                    </div>
+                               </div>
+                               <div class="d-flex justify-content-between ps-3 pe-3">
+                                  <div > <a href=""> <img src="Assets/Vector3.svg" alt="foo" width="25px"> </a></div>
+                                  <div>
+                                      <button class="btn btn-primary me-3"> Recommend</button>
+                                  </div>
+                               </div>
+                          </div>
+                      </div> 
+                  <div class="col-md-12 col-sm-12 col-lg-6  m-0 sm-mt-2 sm-p-0 sm-mt-20  md-mt-20  sm-h-550 md-h-500" >
+                      <div class="card h-100 pt-2 ps-2 text-white pb-3 position-relative" >
+                          <div >
+                              Once you Click On recomender the Processed text will show up here
+                          </div>
+                          <div>
+                              <div class="row w-100" style="position: absolute; bottom: 20px;">
+                                  <div class="col-3 d-flex align-items-center " >
+            
+                                      <div class="pe-2 ">
+                                         <a href=""> <img src="Assets/like 2.png" alt="" width="30px"> </a></div>
+                                      <div >
+                                         <a href=""> <img src="Assets/like 1.png" alt="" width="30px"> </a> </div>
+                                  </div>
+                                  <div class="col-3">
+                                      <span> <a href=""> <img src="Assets/email 1 (1).png" alt="" width="30px"> </a></span>
+                                  </div>
+                                  <div class="col-3">
+                                      <span> <a href="#">  <img src="Assets/copy 1.png" alt="" width="30px"> </a></span>
+                                  </div>
+                                  <div class="col-3">
+                                      <span> <a href="#"> <img src="Assets/download.png" alt="" width="30px"></a> </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+            
+                  </div>
+              </div>
+                  <br> <br>
+                <div class=" dark-bg-color pt-4 pb-4  text-justify  ps-80 pb-3 ps-m-0 " id="anopadding" >
+                  <p  class="fs-5 text-center pt-2 text-green" >Convo's artificial intelligence technology can improve <br>
+                      your data processing capabilities
+                      </p> <br>
+                      <p class="text-white  sm-pe-2">The invoices/databases you use are important and our conversational analytics has been developed to make
+                          sure you adopt the proper ones. There are two free versions and five Premium versions offered by Convo so you  can rework any text in varied forms. Our service will be able to refine your language skills and guarantee that you use the correct words, tones, and structure for the correct circumstances. Just add the material to the input window and  our AI will help you to create the best result.
+                         </p>
+                </div>
+                <div class="dark-bg-color pt-4  ps-80 pb-4 sm-460-p-0 " style="border-top: solid #333333 3px; border-bottom: solid #333333 3px;" id="addpadding" >
+                  <div class="pe-3">
+            
+                  <p class="fs-5  text-center text-green " >What are the advantages of using Congo's Paraphrasing Tool?</p>
+                  <p class="text-center text-white">This Paraphraser possesses exceptional qualities.</p>
+                  <div class="row  align-items-center ">
+                      <div class=" col-lg-6 col-md-12 col-sm-12 d-sm-flex sm-align-items-center sm-justify-content-center">
+                          <img src="Assets/content.png" alt=""  class="w-450 w-sm-100">
+                      </div>
+                      <div class=" col-lg-6 col-md-12 col-sm-12  ">
+                          <p class="text-white ">CUSTOMIZATION <br>
+                              Consider the amount of lexical alteration desired.
+                              Utilize the Synonym Variable to modify more (or less) of your writing. Sliding the variable to the left will grant you a more exact rewrite with fewer modifications; shifting it to the right will mean you’ll achieve a more imaginative output with more alterations.</p>
+                      </div>
+                  </div>
+                </div>
+            
+                </div>
+                
+                <div class="dark-bg-color sm-ps-0 pt-4 pb-4  ps-80  pt-2" id="paddingadd">
+                  <p class="text-green text-center fs-5" > What are the advantages of using Congo's Paraphrasing Tool?</p>
+                  <p class="text-white text-center">This Paraphraser possesses exceptional qualities.</p>
+                  <div class="row  ">
+                      <div class=" col-lg-6 col-md-12 col-sm-12 ">
+                          <p class="text-white">CUSTOMIZATION <br>
+                              Consider the amount of lexical alteration desired.
+                              Utilize the Synonym Variable to modify more (or less) of your 
+                              writing. Sliding the variable to the left will grant you a more exact
+                               rewrite with fewer modifications; shifting it to the right will mean
+                               you’ll achieve a more imaginative output with more alterations.
+                              </p>
+                      </div>
+                      <div class=" col-lg-6 col-md-12 col-sm-12 ps-sm-1 d-sm-flex sm-align-items-center sm-justify-content-center">
+                          <img src="Assets/content.png" alt=""  class="w-450">
+                      </div>
+                  </div>
+                </div>
+              </div>      
+              <div class="footer  pt-3 pb-3 ps-2 pe-2 " >
+                  <div  class="ps-50 " id="footerpadding"  > 
+                  <div class="row " >
+                      <div class="col-sm-3 col-md-2 col-lg-2 ">
+                          <h6>Products</h6>
+                          <span class="fs-14 pb-2 d-inline-block">Marketing</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Sales Solution</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Business</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Data</span> <br>
+                      </div>
+                    
+                      <div class="col-sm-3 col-md-2 col-lg-2">
+                          <h6>Support</h6>
+                          <span class="fs-14 pb-2 d-inline-block">Documentation</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Help Center</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Business</span> <br>
+                      </div>
+                      <div class="col-sm-3 col-md-2 col-lg-2">
+                          <h6>Company</h6>
+                          <span class="fs-14 pb-2 d-inline-block">About</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Team</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Careers</span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">News</span> <br>
+                      </div>
+                      <div class="col-sm-3 col-md-2 col-lg-2">
+                          <h6>Legal</h6>
+                          <span class="fs-14 pb-2 d-inline-block" >Privacy Policy
+                          </span> <br>
+                          <span class="fs-14 pb-2 d-inline-block">Terms</span> <br>
+                          
+                      </div>
+                      <div class="col-sm-12 col-md-2 col-lg-2 ">
+                          <div class="logo ">
+                              <img src="Assets/Ellipse 1 (1).svg" alt="" width="120px">
+                              <br>
+                             <p class="fs-13 mt-2"> Rapid and maintainable <br> product development</p>
+                          </div>
+                      </div>
+                  </div> <br>
+                  <div class="d-flex pe-4 justify-content-center align-items-center" >
+                      <span class="d-inline-block me-5 sm-d-none " style="width: 220px; height: 2px; background-color: #FFF;" >
+                      </span>
+                      <div  class="fs-14 sm-d-none"> © 2023 Argoteks Incorporated. All rights reserved.</div>
+                         
+                          <a href="#">  <i class="fa-brands bg-middle-green fa-facebook-f ps-3" style="font-size: 18px;"></i></a>
+                          <a href="#">     <i class="fa-brands bg-middle-green fa-youtube ps-3" style="font-size: 18px;"></i></a>
+                       <a href="#">   <i class="fa-brands bg-middle-green fa-instagram ps-3" style="font-size: 18px;"></i></a>
+                          <a href="#"> <i class="fa-brands bg-middle-green fa-linkedin-in ps-3" style="font-size: 18px;"></i></a>
+                          <span class="d-inline-block ms-5 sm-d-none" style="width: 220px; height: 2px; background-color: #FFF;" >
+                          </span>
+                      </div>
+                  </div>
+              </div>
+              <script src="navigation.js"></script>
+              <script src="/audioMotionAnalyzer.js"></script>
+              <script>
+                document.addEventListener("DOMContentLoaded", function(event) {
+             
+             const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+             const toggle = document.getElementById(toggleId),
+             nav = document.getElementById(navId),
+             bodypd = document.getElementById(bodyId),
+             headerpd = document.getElementById(headerId)
+             
+             // Validate that all variables exist
+             if(toggle && nav && bodypd && headerpd){
+             toggle.addEventListener('click', ()=>{
+              removeClass();
+             // show navbar
+             nav.classList.toggle('show2')
+             // change icon
+             toggle.classList.toggle('bx-x')
+             // add padding to body
+             bodypd.classList.toggle('body-pd')
+             // add padding to header
+             headerpd.classList.toggle('body-pd')
+             })
+             }
+             }
+             
+             showNavbar('header-toggle','nav-bar','body-pd','header')
+             
+             /*===== LINK ACTIVE =====*/
+             const linkColor = document.querySelectorAll('.nav_link')
+             
+             function colorLink(){
+             if(linkColor){
+             linkColor.forEach(l=> l.classList.remove('active'))
+             this.classList.add('active')
+             }
+             }
+             linkColor.forEach(l=> l.addEventListener('click', colorLink))
+             });
+            function removeClass() {
+              
+              var divElement = document.getElementById("remove");
+              divElement.classList.toggle('ps-230');
+              var addpadding = document.getElementById('addpadding');
+              addpadding.classList.toggle('ps-160')
+              var anopadding = document.getElementById('anopadding');
+              anopadding.classList.toggle('ps-160');
+              var paddingadd = document.getElementById('paddingadd');
+              paddingadd.classList.toggle('ps-160');
+              var footerpadding = document.getElementById('footerpadding');
+              footerpadding.classList.toggle('ps-230')
+            }
+            
+              </script>
+            
+            </body>
+            
+            </html>
