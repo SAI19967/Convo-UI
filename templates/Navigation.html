@@ -822,12 +822,3 @@ function imagesOnFileSelect() {
     const dropboxLink = dropboxLinkInput.value;
     imagesConfirmSelectedButton.style.display="block";
 }
-
-function processSelectedTables(selectedTables) {
-    readTablesMessage.style.display = "block";
-    document.getElementById('LoadingIndicator14').style.display = 'block';
-    console.log(selectedTables);
-    const apiUrl = "{{ session['apiurl'] }}";
-    const username = "{{ session['username'] }}";
-    const password = "{{ session['password'] }}";
-    const dmfull = selectOption1.value;
