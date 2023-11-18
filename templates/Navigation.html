@@ -218,8 +218,20 @@
                          </div>
                           <p class=" text-center mb-2">Please Authenticate with Dropbox to select files</p>
                           <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-primary m-2">Coneect to Dropbox</a>
+                            <a href="#" class="btn btn-primary m-2" id="dropboxSubmitButton">Coneect to Dropbox</a>
                           </div>
+                         <p id="documentsDropdownText" style="display: none;">
+                            From the selected folder and file type in Dropbox, which specific file(s) would you like to select for analysis?
+                        </p>
+                        <div class="select-container">
+                            <select id="pdfFilesDropdown" class="text-input" style="display: none;" multiple>
+                                <!-- Add your PDF file options here -->
+                            </select>
+                            <div class="space"></div>
+                            <div class="button-container">
+                                <button id="pdfConfirmSelectedButton" class="custom-button-small" style="display: none;">Confirm Selection</button>
+                            </div>
+                        </div>
                       </div>
                             </div>
                            
@@ -683,3 +695,139 @@ function removeClass() {
 </body>
 
 </html>
+
+
+
+//Scripting happens here
+    const dropboxSubmitButton = document.getElementById("dropboxSubmitButton");
+    const validationMessage = document.getElementById("validationMessage");
+    const fileTypeText = document.getElementById("fileTypeText");
+    const selectFileType = document.getElementById("selectFileType");
+
+dropboxSubmitButton.addEventListener("click", async function() {
+  const dropboxLink = dropboxLinkInput.value;
+  console.log(dropboxLink);
+
+  // Check if the Dropbox link is not empty
+  if (dropboxLink.trim() === "") {
+    alert("Error: The Dropbox link cannot be empty. Please enter a valid link.");
+    dropboxLinkInput.value = ""; // Clear the input field
+    return; // Exit the function if the link is empty
+  }
+
+  // Check if the link contains "https" and "dropbox"
+  if (!/https.*dropbox/i.test(dropboxLink)) {
+    alert("Error: The Dropbox link should start with 'https' and have the word 'dropbox' in it. Please enter a valid link.");
+    dropboxLinkInput.value = ""; // Clear the input field
+    return; // Exit the function if the link is not valid
+  }
+
+  // Display the validating message before making the validation request
+  validationMessage.style.display = "block";
+  document.getElementById('LoadingIndicator1').style.display = 'block';
+
+  // Use setTimeout to hide the validation message after 5 seconds
+  setTimeout(function() {
+    validationMessage.style.display = "none";
+    document.getElementById('LoadingIndicator1').style.display = 'none';
+  }, 5000);
+
+  // Now, proceed with the validation
+  const isValid = await validateDropboxLink(dropboxLink);
+
+  // Hide the validating message before showing the alert for an invalid link
+  validationMessage.style.display = "none";
+  document.getElementById('LoadingIndicator1').style.display = 'block';
+
+  if (isValid) {
+    // Show fileTypeText and selectFileType if the link is valid
+    fileTypeText.style.display = "block";
+    selectFileType.style.display = "block";
+  } else {
+    // Show the alert message for an invalid link
+    alert("Error: The Dropbox link is not valid. Please enter a valid link.");
+    dropboxLinkInput.value = ""; // Clear the input field
+  }
+});
+
+// Add an event listener to clear fileTypeText and selectFileType when the input field changes
+dropboxLinkInput.addEventListener("input", function() {
+  fileTypeText.style.display = "none";
+  selectFileType.style.display = "none";
+  documentsDropdownText.style.display="none";
+  pdfFilesDropdown.style.display="none";
+  ImagesFilesDropdown.style.display="none";
+  pdfConfirmSelectedButton.style.display="none";
+  imagesConfirmSelectedButton.style.display="none";
+  readPdfMessage.style.display="none";
+  readImagesMessage.style.display="none";
+  wonderfulPdfText.style.display="none";
+  pdfInputContainer.style.display="none";
+  pdfResultContainer.style.display="none";
+  validationMessage.style.display="none";
+  pdfLoadingMessage.style.display="none";
+  FetchPdfMessage.style.display="none";
+  documentsDropdownText.selectedIndex = 0;
+  pdfFilesDropdown.selectedIndex=0;
+  ImagesFilesDropdown.selectedIndex=0;
+  selectFileType.selectedIndex=0;
+  #document.getElementById("imagesConfirmSelectedButton").disabled = false;
+  #document.getElementById("pdfConfirmSelectedButton").disabled = false;
+  #document.getElementById("pdfFilesDropdown").disabled = false;
+  #document.getElementById("imagesFilesDropdown").disabled=false;
+});
+
+
+
+
+
+async function validateDropboxLink(link) {
+  try {
+    const response = await fetch("/validate_dropbox_link", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({link}),
+    });
+    
+    if (response.ok) {
+      // Check the response from the server
+      const data = await response.json();
+      if (data.isValid) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error validating Dropbox link:", error);
+    return false;
+  }
+}
+
+document.getElementById("pdfFilesDropdown").addEventListener("change", pdfOnFileSelect);
+document.getElementById("ImagesFilesDropdown").addEventListener("change", imagesOnFileSelect);
+
+function pdfOnFileSelect() {
+    const selectedFile = document.getElementById("pdfFilesDropdown").value;
+    const dropboxLink = dropboxLinkInput.value;
+    pdfConfirmSelectedButton.style.display="block";
+}
+
+function imagesOnFileSelect() {
+    const selectedFile = document.getElementById("ImagesFilesDropdown").value;
+    const dropboxLink = dropboxLinkInput.value;
+    imagesConfirmSelectedButton.style.display="block";
+}
+
+function processSelectedTables(selectedTables) {
+    readTablesMessage.style.display = "block";
+    document.getElementById('LoadingIndicator14').style.display = 'block';
+    console.log(selectedTables);
+    const apiUrl = "{{ session['apiurl'] }}";
+    const username = "{{ session['username'] }}";
+    const password = "{{ session['password'] }}";
+    const dmfull = selectOption1.value;
